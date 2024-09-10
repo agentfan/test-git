@@ -1,6 +1,8 @@
 package src.main.java;
 
 import java.io.*;
+import java.net.URL;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class App {
@@ -10,7 +12,9 @@ public class App {
     }
 
     private void readFile() {
-        String path = this.getClass().getResource("/test.txt").getPath();
+        String path = Optional.ofNullable(this.getClass().getResource("/test.txt"))
+                .map(URL::getPath)
+                .orElse(null);
         if (path == null) {
             System.out.println("File is not found");
             return;
