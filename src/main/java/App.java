@@ -2,19 +2,17 @@ package src.main.java;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         App app = new App();
-        List<Integer> result = app.readFile();
+        int[] inputted = app.readFile();
         System.out.println("End.");
     }
 
-    private List<Integer> readFile() {
+    private int[] readFile() {
         String path = Optional.ofNullable(this.getClass().getResource("/test.txt"))
                 .map(URL::getPath)
                 .orElse(null);
@@ -24,11 +22,12 @@ public class App {
         }
         File file = new File(path);
         try (Scanner scanner = new Scanner(file)) {
-            List<Integer> result = new ArrayList<>();
+            int[] result = new int[100];
+            int i = 0;
             while (scanner.hasNextInt()) {
-                int x = scanner.nextInt();
-                System.out.printf("%5d", x);
-                result.add(x);
+                result[i] = scanner.nextInt();
+                System.out.printf("%5d", result[i]);
+                i++;
             }
             System.out.println();
             return result;
